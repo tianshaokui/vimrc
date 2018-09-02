@@ -1,0 +1,20 @@
+ShaokuiMacBookPro:asyncrun.vim shaokui1$ git diff
+diff --git a/plugin/asyncrun.vim b/plugin/asyncrun.vim
+index 70478da..6582afa 100644
+--- a/plugin/asyncrun.vim
++++ b/plugin/asyncrun.vim
+@@ -1277,12 +1277,12 @@ function! asyncrun#quickfix_toggle(size, ...)
+                endif
+        elseif l:mode == 1
+                if s:quickfix_open == 0
+-                       exec 'botright copen '. ((a:size > 0)? a:size : ' ')
++                       exec 'copen '. ((a:size > 0)? a:size : ' ')
+                        wincmd k
+                endif
+        elseif l:mode == 2
+                if s:quickfix_open == 0
+-                       exec 'botright copen '. ((a:size > 0)? a:size : ' ')
++                       exec 'copen '. ((a:size > 0)? a:size : ' ')
+                        wincmd k
+                else
+                        silent! cclose
