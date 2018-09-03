@@ -51,6 +51,11 @@ au BufNewFile,BufRead *.js, *.html, *.css, *.c, *.cpp
 " pydoc
 map <silent> <F1> <leader>pw<CR>
 
+
+
+" YouCompleteMe
+let g:ycm_server_python_interpreter ='/usr/local/bin/python'
+let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 let g:ycm_autoclose_preview_window_after_completion=1
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -66,13 +71,14 @@ set encoding=utf-8
 
 
 "python with virtualenv support
-py3 << EOF
+py << EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    if os.path.isfile(activate_this):
+        execfile(activate_this, dict(__file__=activate_this))
 EOF
 
 " 代码变得更漂亮
@@ -138,3 +144,7 @@ nmap <Leader>s :ALEToggle<CR>
 nmap <Leader>d :ALEDetail<CR>
 "设置状态栏显示的内容
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}\ %{ALEGetStatusLine()}
+
+
+
+
