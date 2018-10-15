@@ -1,0 +1,87 @@
+#!/usr/bin/expect
+
+if {$argc == 1} {
+    spawn ssh otiansk@172.18.2.10
+    expect {
+        "yes/no" {
+            send "yes\r"
+            exp_continue
+        }
+        "assword:" {
+            send "dreamsk@3616 "
+            expect_user {
+               -timeout 30
+               -re "\n" {}
+            }
+            set key $expect_out(buffer)
+            send $key
+            exp_continue
+        }
+        "group:" {
+            send "2\r"
+            exp_continue
+        }
+        "page:" {
+        send [lrange $argv 0 0]
+        send "\r"
+        }
+    }
+    
+    set timeout 4
+    expect "++++++++++++++++"
+    
+    
+    set timeout 1
+    expect "###"
+    send "sudo su -\r"
+    expect {
+        "password" { send "dreamsk@3616\r" }
+    }
+    
+    interact
+}
+if {$argc > 1} {
+    log_user 0
+    spawn ssh otiansk@172.18.2.10
+    expect {
+        "yes/no" {
+            send "yes\r"
+            exp_continue
+        }
+        "assword:" {
+            send "dreamsk@3616 "
+            expect_user {
+               -timeout 30
+               -re "\n" {}
+            }
+            set key $expect_out(buffer)
+            send $key
+            exp_continue
+        }
+        "group:" {
+            send "2\r"
+            exp_continue
+        }
+        "page:" {
+        send [lrange $argv 0 0]
+        send "\r"
+        }
+    }
+    
+    set timeout 4
+    expect "++++++++++++++++"
+    
+    
+    set timeout 1
+    expect "###"
+    send "sudo su -\r"
+    expect {
+        "password" { send "dreamsk@3616\r" }
+    }
+    send [lrange $argv 1 9]
+    log_user 1
+    send "\r"
+    expect ".#" {}
+    exit
+}
+ 

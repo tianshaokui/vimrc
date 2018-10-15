@@ -1,18 +1,39 @@
 #!/usr/bin/expect
-spawn ssh  [lrange $argv 0 0]
-
-set timeout 1.4
-expect {
-    "(yes/no)?" { send "yes\r" ; exp_continue }
-    "password:" { send "Dreamsk@3616\r" }
+if {$argc > 1} {
+    log_user 0
+    spawn ssh  [lrange $argv 0 0]
+    
+    set timeout 1
+    expect {
+        "yes/no" { send "yes\r" ; exp_continue }
+        "password:" { send "Dreamsk@3616\r"; exp_continue}
+        ".#" {}
+    }
+    
+    send "sudo su -\r"
+    expect {
+        "password" { send "Dreamsk@3616\r" }
+    }
+    send [lrange $argv 1 9]
+    log_user 1
+    send "\r"
+    expect ".#" {}
+    exit
 }
 
-expect ".#"
-send "sudo su -\r"
-expect {
-    "password" { send "Dreamsk@3616\r" }
+if {$argc == 1} {
+    spawn ssh  [lrange $argv 0 0]
+
+    set timeout 1
+    expect {
+        "yes/no" { send "yes\r" ; exp_continue }
+        "password:" { send "Dreamsk@3616\r" ; exp_continue}
+        ".#" {}
+    }
+    
+    send "sudo su -\r"
+    expect {
+        "password" { send "Dreamsk@3616\r" }
+    }
+    interact
 }
-#expect ".#"
-#send_user "hello world!"
-#send "\r"
-interact

@@ -1,9 +1,11 @@
 #!/usr/bin/expect
 spawn ssh otiansk@172.18.2.10
 
-set timeout 1.2
 expect {
-    "(yes/no)?" { send "yes\r" ; exp_continue }
+    "yes/no" {
+        send "yes\r"
+        exp_continue
+    }
     "assword:" {
         send "Dreamsk@3616 "
         expect_user {
@@ -14,26 +16,31 @@ expect {
         send $key
         exp_continue
     }
+    "group:" {
+        send "2\r"
+        exp_continue
+    }
+    "page:" {}
 }
-expect ".#"
-set timeout 1.5
-expect {
-    "group:" { send "2\r";exp_continue }
-}
-expect ".#"
-set timeout 2.4
 
 expect_user {
     -timeout 30
     -re "\[0-9\.]{5,}\n" {
         set ip $expect_out(buffer)
         send $ip
-        expect ".#"
-        send "sudo su -\r"
-        set timeout 1.2
-        expect {
-            "password" { send "Dreamsk@3616\r" }
-        }    
     }
+
 }
+
+set timeout 8
+expect "+++++++++++"
+
+
+set timeout 1
+expect "###"
+send "sudo su -\r"
+expect {
+    "password" { send "Dreamsk@3616\r" }
+}
+
 interact
