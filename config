@@ -1,0 +1,35 @@
+Host gitlab*
+    IdentityFile ~/.ssh/id_rsa_git
+    User tiansk
+
+Host 18.205.161.92
+    IdentityFile ~/.ssh/fanqiang.pem
+    Port 10122
+    User centos
+
+Host github*
+    IdentityFile ~/.ssh/id_rsa.github
+    User tianshaokui
+
+Host 172.16.200.*
+    ControlMaster auto
+    StrictHostKeyChecking no
+    Port 10622
+    ControlPath ~/.ssh/master-%r@%h:%p
+    Compression yes
+    ControlPersist 24h
+
+Host 172.16.33.*
+    ControlMaster auto
+    StrictHostKeyChecking no
+    Port 10622
+    ControlPath ~/.ssh/master-%r@%h:%p
+    Compression yes
+    ControlPersist 24h
+
+Host *
+    ControlMaster auto
+    StrictHostKeyChecking no
+    ControlPath ~/.ssh/master-%r@%h:%p
+    Compression yes
+    ControlPersist 24h
