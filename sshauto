@@ -11,18 +11,16 @@ if {$argc > 1} {
             send "Dreamsk@3616\r"
             exp_continue
         }
-        "++++++++++++++++" {}
+        "otiansk@" {}
     }
-    set timeout 1
-    expect "###"
     send "sudo su -\r"
     expect {
-        "password" { send "Dreamsk@3616\r" }
+        "password" { send "Dreamsk@3616\r";exp_continue }
+        "root@" {}
     }
     send [lrange $argv 1 9]
     log_user 1
     send "\r"
-    expect ".#" {}
     exit
 }
 
@@ -37,13 +35,12 @@ if {$argc == 1} {
             send "Dreamsk@3616\r"
             exp_continue
         }
-        "++++++++++++++++" {}
+        "otiansk@" {}
     }
-    set timeout 1
-    expect "###"
     send "sudo su -\r"
     expect {
-        "password" { send "Dreamsk@3616\r" }
+        "password" { send "Dreamsk@3616\r" ;exp_continue}
+        "root@" {}
     }
     interact
 }
