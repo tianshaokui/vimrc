@@ -26,8 +26,8 @@ if {$argc == 1} {
             send "\r"
         }
      }
-     set timeout 4
-     expect  "++++++++" { }
+     set timeout 3
+     expect  "#####" { }
      send "sudo su -\r"
      expect {
         "password" {
@@ -64,10 +64,11 @@ if {$argc > 1} {
         "page:" {
             send [lrange $argv 0 0]
             send "\r"
+            exp_continue
         }
     }
-    set timeout 4
-    expect  "++++++++" { }
+    set timeout 3
+    expect  "####" { }
     send "sudo su -\r"
     expect {
         "password" { send "Dreamsk@3616\r";exp_continue}
