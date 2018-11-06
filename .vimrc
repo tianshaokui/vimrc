@@ -7,6 +7,7 @@ call pathogen#infect()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+
 " let Vundle manage Vundle, required
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
@@ -146,5 +147,9 @@ nmap <Leader>d :ALEDetail<CR>
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}\ %{ALEGetStatusLine()}
 
 
-
-
+" 系统 粘贴板复制粘贴
+" nmap <c-v> "+gp
+" nmap <c-c> "+y
+let mapleader=","
+nmap <leader>v "+gp
+nmap <leader>c "+y

@@ -31,10 +31,9 @@ if {$argc == 1} {
      send "sudo su -\r"
      expect {
         "password" {
+            expect  "#####" { }
             send "Dreamsk@3616\r"
-            exp_continue
         }
-        "root@" {}
     }
     
     interact
@@ -71,8 +70,10 @@ if {$argc > 1} {
     expect  "####" { }
     send "sudo su -\r"
     expect {
-        "password" { send "Dreamsk@3616\r";exp_continue}
-        "root@" {}
+        "password" {
+            expect  "#####" { }
+            send "Dreamsk@3616\r"
+        }
     }
     send [lrange $argv 1 9]
     log_user 1
